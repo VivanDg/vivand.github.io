@@ -7,24 +7,27 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #f0f4f8;
     color: #333;
 }
 
 header {
-    background-color: #0073e6;
+    background-color: #4a90e2;
     color: white;
-    padding: 1em;
+    padding: 1.5em;
     text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #357ab8;
 }
 
 h1 {
-    font-size: 1.8em;
-    margin-bottom: 0.2em;
+    font-size: 2em;
+    margin-bottom: 0.3em;
 }
 
 p {
-    font-size: 1.2em;
+    font-size: 1.1em;
+    font-weight: 300;
 }
 
 main {
@@ -35,26 +38,62 @@ main {
 
 table {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     border-collapse: collapse;
     margin-top: 1em;
+    background-color: white;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 th, td {
     padding: 1em;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #e0e6ed;
     text-align: center;
 }
 
 th {
-    background-color: #0073e6;
+    background-color: #4a90e2;
     color: white;
+    font-weight: 600;
 }
 
-tr:nth-child(even) {
-    background-color: #e6f0ff;
+tr:hover {
+    background-color: #f0f8ff;
 }
 
+td button, td input[type="file"] {
+    padding: 0.6em 1em;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+td input[type="file"] {
+    background-color: #f4f4f4;
+    color: #555;
+}
+
+td button {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: 600;
+    margin-top: 0.5em;
+}
+
+td button:hover {
+    background-color: #357ab8;
+}
+
+td button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Estilo del modal */
 .modal {
     display: none;
     position: fixed;
@@ -63,7 +102,7 @@ tr:nth-child(even) {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
@@ -72,18 +111,31 @@ tr:nth-child(even) {
     padding: 20px;
     width: 80%;
     max-width: 700px;
-    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
 .close {
     color: #aaa;
-    float: right;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 10px;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .close:hover {
     color: #000;
+}
+
+/* Estilo para el visor de PDF */
+iframe {
+    border: none;
+    width: 100%;
+    height: 500px;
+    margin-top: 1em;
 }
 
