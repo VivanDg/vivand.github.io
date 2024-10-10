@@ -31,6 +31,13 @@ main {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     width: 300px; /* Limita el ancho del formulario */
+    text-align: center;
+}
+
+.auth label {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #333;
 }
 
 .auth input[type="password"] {
