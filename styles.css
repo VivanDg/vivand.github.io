@@ -1,155 +1,36 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Estilos básicos */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f4f8;
-    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 header {
+    text-align: center;
+    padding: 20px;
     background-color: #4a90e2;
     color: white;
-    padding: 1.5em;
-    text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-bottom: 3px solid #357ab8;
-}
-
-h1 {
-    font-size: 2em;
-    margin-bottom: 0.3em;
-}
-
-p {
-    font-size: 1.1em;
-    font-weight: 300;
 }
 
 main {
-    padding: 2em;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
-table {
-    width: 100%;
-    max-width: 800px;
-    border-collapse: collapse;
-    margin-top: 1em;
-    background-color: white;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-th, td {
-    padding: 1em;
-    border-bottom: 1px solid #e0e6ed;
-    text-align: center;
-}
-
-th {
-    background-color: #4a90e2;
-    color: white;
-    font-weight: 600;
-}
-
-tr:hover {
-    background-color: #f0f8ff;
-}
-
-td button, td input[type="file"] {
-    padding: 0.6em 1em;
-    font-size: 0.9em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-td input[type="file"] {
-    background-color: #f4f4f4;
-    color: #555;
-}
-
-td button {
-    background-color: #4a90e2;
-    color: white;
-    font-weight: 600;
-    margin-top: 0.5em;
-}
-
-td button:hover {
-    background-color: #357ab8;
-}
-
-td button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-/* Contenedor para visualizar el PDF */
-.pdf-container {
-    display: none;
-    margin-top: 1em;
-    border-top: 1px solid #ddd;
-    padding-top: 1em;
-    text-align: center;
-}
-
-.pdf-container iframe {
-    border: none;
-    width: 100%;
-    height: 400px;
-    margin-top: 1em;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.button-group button {
-    padding: 0.5em 1.2em;
-    font-size: 0.9em;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button-download {
-    background-color: #28a745;
-    color: white;
-}
-
-.button-delete {
-    background-color: #dc3545;
-    color: white;
-}
-
-.button-download:hover {
-    background-color: #218838;
-}
-
-.button-delete:hover {
-    background-color: #c82333;
-}
-
-/* Estilo del formulario de autenticación */
 /* Estilo del formulario de autenticación */
 .auth {
     display: flex;
-    flex-direction: column; /* Cambia la dirección para que los elementos se apilen verticalmente */
+    flex-direction: column;
     align-items: center;
+    background-color: #e9f1f7;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    width: 300px; /* Limita el ancho del formulario */
 }
 
 .auth input[type="password"] {
@@ -157,7 +38,8 @@ td button:disabled {
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px; /* Espacio entre el input y el botón */
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .auth button {
@@ -169,11 +51,68 @@ td button:disabled {
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 .auth button:hover {
     background-color: #357ab8;
 }
 
+/* Estilo de la tabla de semanas */
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e6ed;
+    text-align: center;
+}
+
+th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+/* Contenedor para los archivos PDF */
+.pdf-container {
+    display: none;
+    padding: 1em;
+    text-align: center;
+}
+
+.pdf-container iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+}
+
+/* Botón de descarga */
+.button-download {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-download:hover {
+    background-color: #218838;
+}
+
+/* Estilo para archivos complementarios */
+.complementary-files p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
 
 
