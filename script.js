@@ -1,37 +1,35 @@
 document.addEventListener("DOMContentLoaded", function() {
     const tasksTable = document.getElementById("tasksTable").querySelector("tbody");
-    const pdfModal = document.getElementById("pdfModal");
-    const pdfViewer = document.getElementById("pdfViewer");
-    const closeModal = document.querySelector(".close");
 
     // Generar filas de la tabla para cada semana
     for (let week = 1; week <= 16; week++) {
         const row = document.createElement("tr");
 
-        // Crear un input de tipo file para cargar el PDF
+        // Crear un contenedor para la sección de cada tarea
         row.innerHTML = `
             <td>Semana ${week}</td>
             <td>Descripción de la tarea de la semana ${week}</td>
             <td>
                 <input type="file" accept="application/pdf" onchange="uploadPDF(this, ${week})">
-                <button onclick="viewPDF(${week})" disabled>Ver PDF</button>
+                <button onclick="togglePDFView(${week})" disabled>Ver PDF</button>
+            </td>
+        `;
+        const pdfContainer = document.createElement("tr");
+        pdfContainer.classList.add("pdf-container-row");
+        pdfContainer.innerHTML = `
+            <td colspan="3">
+                <div class="pdf-container" id="pdfContainer${week}">
+                    <iframe id="pdfViewer${week}" src=""></iframe>
+                    <div class="button-group">
+                        <button class="button-download" onclick="downloadPDF(${week})">Descargar PDF</button>
+                        <button class="button-delete" onclick="deletePDF(${week})">Eliminar PDF</button>
+                    </div>
+                </div>
             </td>
         `;
         tasksTable.appendChild(row);
+        tasksTable.appendChild(pdfContainer);
     }
-
-    // Cerrar el modal
-    closeModal.onclick = function() {
-        pdfModal.style.display = "none";
-        pdfViewer.src = "";
-    };
-
-    window.onclick = function(event) {
-        if (event.target === pdfModal) {
-            pdfModal.style.display = "none";
-            pdfViewer.src = "";
-        }
-    };
 });
 
 const pdfFiles = {};  // Objeto para almacenar los archivos PDF subidos
@@ -39,7 +37,6 @@ const pdfFiles = {};  // Objeto para almacenar los archivos PDF subidos
 function uploadPDF(input, week) {
     const file = input.files[0];
     if (file && file.type === "application/pdf") {
-        // Guardar el archivo PDF en el objeto pdfFiles
         pdfFiles[week] = URL.createObjectURL(file);
 
         // Habilitar el botón de visualización del PDF para esta semana
@@ -50,14 +47,37 @@ function uploadPDF(input, week) {
     }
 }
 
-function viewPDF(week) {
-    const pdfModal = document.getElementById("pdfModal");
-    const pdfViewer = document.getElementById("pdfViewer");
+function togglePDFView(week) {
+    const pdfContainer = document.getElementById(`pdfContainer${week}`);
+    const pdfViewer = document.getElementById(`pdfViewer${week}`);
 
     if (pdfFiles[week]) {
         pdfViewer.src = pdfFiles[week];
-        pdfModal.style.display = "block";
+        pdfContainer.style.display = pdfContainer.style.display === "block" ? "none" : "block";
     } else {
         alert("No hay ningún archivo PDF disponible para esta semana.");
+    }
+}
+
+function downloadPDF(week) {
+    if (pdfFiles[week]) {
+        const link = document.createElement("a");
+        link.href = pdfFiles[week];
+        link.download = `Semana_${week}.pdf`;
+        link.click();
+    }
+}
+
+function deletePDF(week) {
+    if (pdfFiles[week]) {
+        URL.revokeObjectURL(pdfFiles[week]);
+        delete pdfFiles[week];
+
+        // Ocultar el contenedor PDF y resetear el input y el botón
+        document.getElementById(`pdfContainer${week}`).style.display = "none";
+        document.querySelectorAll(`#tasksTable tr:nth-child(${week * 2 - 1}) input[type="file"]`)[0].value = "";
+        document.querySelectorAll(`#tasksTable tr:nth-child(${week * 2 - 1}) button`)[0].disabled = true;
+
+        alert("El archivo PDF ha sido eliminado.");
     }
 }
