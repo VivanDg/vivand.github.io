@@ -142,5 +142,35 @@ td button:disabled {
 .button-delete:hover {
     background-color: #c82333;
 }
+/* Estilo del formulario de autenticación */
+.auth {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.auth input[type="password"] {
+    padding: 0.5em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 0.6em 1em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth button:hover {
+    background-color: #357ab8;
+}
+
 
 
