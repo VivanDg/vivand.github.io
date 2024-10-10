@@ -13,12 +13,19 @@
     </header>
 
     <main>
+        <div class="auth">
+            <label for="accessCode">Ingresa tu clave para gestionar archivos PDF:</label>
+            <input type="password" id="accessCode" placeholder="Clave">
+            <button onclick="authorize()">Autorizar</button>
+        </div>
+        
         <table id="tasksTable">
             <thead>
                 <tr>
                     <th>Semana</th>
                     <th>Tarea</th>
-                    <th>Archivo</th>
+                    <th>Archivo PDF</th>
+                    <th>Archivos Complementarios</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,14 +34,7 @@
         </table>
     </main>
 
-    <!-- Modal para ver PDFs -->
-    <div id="pdfModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <iframe id="pdfViewer" src="" width="100%" height="500px"></iframe>
-        </div>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
+
