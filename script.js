@@ -22,8 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
         "Descripción de la tarea de la semana 16"
     ];
 
-    const pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};  // Recuperar los PDF desde localStorage
-    const complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};  // Recuperar archivos complementarios desde localStorage
+    // Recuperar PDF y archivos complementarios desde localStorage
+    const pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};  
+    const complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};  
     
     // Generar filas de la tabla para cada semana
     for (let week = 1; week <= 16; week++) {
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <label class="label-upload" for="uploadPDF${week}">Subir PDF</label>
                 <input type="file" id="uploadPDF${week}" accept="application/pdf" onchange="uploadPDF(this, ${week})" ${authorized ? '' : 'disabled'}>
                 <button class="view-button" onclick="togglePDFView(${week})">Ver PDF</button>
+                <button class="button-save" onclick="savePDF(${week})">Guardar PDF</button>
             </td>
             <td>
                 <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png,.zip" onchange="uploadComplementaryFile(this, ${week})" ${authorized ? '' : 'disabled'}>
@@ -60,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
         tasksTable.appendChild(row);
         tasksTable.appendChild(pdfContainer);
 
+        // Mostrar archivos complementarios si existen
         if (complementaryFiles[week]) {
             complementaryFiles[week].forEach(fileName => {
                 const fileDisplay = document.createElement("p");
@@ -71,8 +74,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Objeto para almacenar los archivos PDF y complementarios subidos en memoria temporal
-const pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};
-const complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};
+let pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};
+let complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};
 
 // Función de autenticación para habilitar la subida de PDF
 function authorize() {
@@ -122,6 +125,15 @@ function togglePDFView(week) {
     }
 }
 
+function savePDF(week) {
+    if (pdfFiles[week]) {
+        localStorage.setItem(`savedPDFWeek${week}`, pdfFiles[week]); // Guardar en localStorage
+        alert("PDF guardado en la página.");
+    } else {
+        alert("No hay PDF para guardar.");
+    }
+}
+
 function downloadPDF(week) {
     if (pdfFiles[week]) {
         const link = document.createElement("a");
@@ -163,7 +175,7 @@ function downloadComplementaryFiles(week) {
     if (complementaryFiles[week] && complementaryFiles[week].length > 0) {
         complementaryFiles[week].forEach((fileName, index) => {
             const link = document.createElement("a");
-            link.href = URL.createObjectURL(new Blob([fileName]));
+            link.href = URL.createObjectURL(new Blob([fileName]));  // Asegúrate de que este Blob sea el correcto para los archivos.
             link.download = `Complementario_Semana_${week}_${index + 1}_${fileName}`;
             link.click();
         });
