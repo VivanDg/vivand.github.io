@@ -46,12 +46,16 @@ function authorize() {
     const accessCode = document.getElementById("accessCode").value;
     if (accessCode === "tuClaveSegura") {  // Reemplaza "tuClaveSegura" por la clave que desees
         authorized = true;
-        alert("Autorización exitosa. Ahora puedes subir archivos PDF.");
+        alert("Autorización exitosa. Ahora puedes subir archivos PDF y complementarios.");
 
         document.querySelectorAll("input[type='file'][accept='application/pdf']").forEach(input => {
             input.disabled = false;
         });
         
+        document.querySelectorAll("input[type='file'][accept='.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png,.zip']").forEach(input => {
+            input.disabled = false;
+        });
+
         document.querySelectorAll("td button[onclick^='togglePDFView']").forEach(button => {
             button.disabled = false;
         });
@@ -116,6 +120,12 @@ function deletePDF(week) {
 function uploadComplementaryFile(input, week) {
     const file = input.files[0];
     if (file) {
+        // Aquí sólo los archivos complementarios deben ser subidos por el administrador
+        if (!authorized) {
+            alert("No estás autorizado para subir archivos complementarios.");
+            return;
+        }
+
         if (!complementaryFiles[week]) complementaryFiles[week] = [];
         complementaryFiles[week].push(file);
 
@@ -124,6 +134,3 @@ function uploadComplementaryFile(input, week) {
         document.getElementById(`complementaryFiles${week}`).appendChild(fileDisplay);
     }
 }
-
-
-
