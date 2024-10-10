@@ -10,11 +10,11 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>Semana ${week}</td>
             <td>Descripción de la tarea de la semana ${week}</td>
             <td>
-                <input type="file" accept="application/pdf" onchange="uploadPDF(this, ${week})" disabled>
-                <button onclick="togglePDFView(${week})" disabled>Ver PDF</button>
+                <input type="file" accept="application/pdf" onchange="uploadPDF(this, ${week})" ${authorized ? '' : 'disabled'}>
+                <button onclick="togglePDFView(${week})">Ver PDF</button>
             </td>
             <td>
-                <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png,.zip" onchange="uploadComplementaryFile(this, ${week})">
+                <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png,.zip" onchange="uploadComplementaryFile(this, ${week})" ${authorized ? '' : 'disabled'}>
                 <div id="complementaryFiles${week}" class="complementary-files"></div>
             </td>
         `;
@@ -23,11 +23,11 @@ document.addEventListener("DOMContentLoaded", function() {
         pdfContainer.classList.add("pdf-container-row");
         pdfContainer.innerHTML = `
             <td colspan="4">
-                <div class="pdf-container" id="pdfContainer${week}">
+                <div class="pdf-container" id="pdfContainer${week}" style="display: none;">
                     <iframe id="pdfViewer${week}" src=""></iframe>
                     <div class="button-group">
                         <button class="button-download" onclick="downloadPDF(${week})">Descargar PDF</button>
-                        <button class="button-delete" onclick="deletePDF(${week})">Eliminar PDF</button>
+                        <button class="button-delete" onclick="deletePDF(${week})" ${authorized ? '' : 'disabled'}>Eliminar PDF</button>
                     </div>
                 </div>
             </td>
@@ -47,12 +47,13 @@ function authorize() {
     if (accessCode === "tuClaveSegura") {  // Reemplaza "tuClaveSegura" por la clave que desees
         authorized = true;
         alert("Autorización exitosa. Ahora puedes subir archivos PDF.");
-        
+
         document.querySelectorAll("input[type='file'][accept='application/pdf']").forEach(input => {
             input.disabled = false;
         });
         
-        
+        document.querySelectorAll("td button[onclick^='togglePDFView']").forEach(button => {
+            button.disabled = false;
         });
     } else {
         alert("Clave incorrecta. Inténtalo de nuevo.");
@@ -123,5 +124,6 @@ function uploadComplementaryFile(input, week) {
         document.getElementById(`complementaryFiles${week}`).appendChild(fileDisplay);
     }
 }
+
 
 
