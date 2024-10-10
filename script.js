@@ -52,8 +52,7 @@ function authorize() {
             input.disabled = false;
         });
         
-        document.querySelectorAll("td button[onclick^='togglePDFView']").forEach(button => {
-            button.disabled = false;
+        
         });
     } else {
         alert("Clave incorrecta. Inténtalo de nuevo.");
