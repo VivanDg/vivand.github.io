@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const row = document.createElement("tr");
 
         // URL de los archivos en GitHub
-        const pdfURL = `semana/actividad01.pdf`;
+        const pdfURL = `semanas/Actividad 1.pdf`;
         const complementaryFiles = [
             { name: "Ejemplo_Archivo_1.docx", url: `complementos/semana${week}/Ejemplo_Archivo_1.docx` },
             { name: "Ejemplo_Archivo_2.xlsx", url: `complementos/semana${week}/Ejemplo_Archivo_2.xlsx` }
