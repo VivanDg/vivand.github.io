@@ -13,16 +13,23 @@
     </header>
 
     <main>
+        <div class="auth">
+            <label for="accessCode">Ingresa tu clave para gestionar archivos PDF:</label>
+            <input type="password" id="accessCode" placeholder="Clave">
+            <button onclick="authorize()">Autorizar</button>
+        </div>
+        
         <table id="tasksTable">
             <thead>
                 <tr>
                     <th>Semana</th>
+                    <th>Tarea</th>
                     <th>Archivo PDF</th>
                     <th>Archivos Complementarios</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Filas de la tabla generadas por JavaScript -->
+                <!-- Las filas de la tabla se generarán dinámicamente en JavaScript -->
             </tbody>
         </table>
     </main>
