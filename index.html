@@ -13,10 +13,27 @@
     </header>
 
     <main>
-        <ul id="weeksList">
-            <!-- Generar enlaces a cada semana -->
-        </ul>
+        <table id="tasksTable">
+            <thead>
+                <tr>
+                    <th>Semana</th>
+                    <th>Tarea</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Las filas de la tabla se generarán dinámicamente en JavaScript -->
+            </tbody>
+        </table>
     </main>
+
+    <!-- Modal para ver PDFs -->
+    <div id="pdfModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="pdfViewer" src="" width="100%" height="500px"></iframe>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
