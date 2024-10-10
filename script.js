@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         row.innerHTML = `
             <td>Semana ${week}</td>
-            <td>Descripción de la tarea de la semana ${week}</td>
+            
             <td>
                 <label class="label-upload" for="uploadPDF${week}">Subir PDF</label>
                 <input type="file" id="uploadPDF${week}" accept="application/pdf" onchange="uploadPDF(this, ${week})" ${authorized ? '' : 'disabled'}>
