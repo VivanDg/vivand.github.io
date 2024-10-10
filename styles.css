@@ -88,39 +88,6 @@ th {
     color: white;
 }
 
-/* Estilos para botones de subir archivos y ver PDF */
-input[type="file"] {
-    display: none; /* Ocultar el input de archivo */
-}
-
-.label-upload {
-    display: inline-block;
-    padding: 0.5em 1em;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.label-upload:hover {
-    background-color: #0056b3;
-}
-
-.view-button {
-    background-color: #17a2b8;
-    color: white;
-    padding: 0.5em 1em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.view-button:hover {
-    background-color: #138496;
-}
-
 /* Contenedor para los archivos PDF */
 .pdf-container {
     display: none;
@@ -154,21 +121,3 @@ input[type="file"] {
     margin: 5px 0;
     font-size: 0.9em;
 }
-
-/* Estilo de los botones de eliminar */
-.button-delete {
-    background-color: #dc3545;
-    color: white;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button-delete:hover {
-    background-color: #c82333;
-}
-
-
-
