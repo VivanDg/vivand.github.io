@@ -12,11 +12,12 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>
                 <label class="label-upload" for="uploadPDF${week}">Subir PDF</label>
                 <input type="file" id="uploadPDF${week}" accept="application/pdf" onchange="uploadPDF(this, ${week})" ${authorized ? '' : 'disabled'}>
-                <button class="view-button" onclick="togglePDFView(${week})" ${authorized ? '' : 'disabled'}>Ver PDF</button>
+                <button class="view-button" onclick="togglePDFView(${week})">Ver PDF</button>
             </td>
             <td>
                 <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png,.zip" onchange="uploadComplementaryFile(this, ${week})" ${authorized ? '' : 'disabled'}>
                 <div id="complementaryFiles${week}" class="complementary-files"></div>
+                <button class="button-download" onclick="downloadComplementaryFiles(${week})">Descargar Complementarios</button>
             </td>
         `;
 
@@ -49,13 +50,9 @@ function authorize() {
         authorized = true;
         alert("Autorización exitosa. Ahora puedes subir archivos PDF.");
 
-        // Habilitar los inputs y botones
+        // Habilitar solo los inputs de subida de archivos
         document.querySelectorAll("input[type='file']").forEach(input => {
             input.disabled = false;
-        });
-
-        document.querySelectorAll("td button").forEach(button => {
-            button.disabled = false;
         });
     } else {
         alert("Clave incorrecta. Inténtalo de nuevo.");
@@ -124,5 +121,18 @@ function uploadComplementaryFile(input, week) {
         const fileDisplay = document.createElement("p");
         fileDisplay.textContent = `Archivo: ${file.name}`;
         document.getElementById(`complementaryFiles${week}`).appendChild(fileDisplay);
+    }
+}
+
+function downloadComplementaryFiles(week) {
+    if (complementaryFiles[week] && complementaryFiles[week].length > 0) {
+        complementaryFiles[week].forEach((file, index) => {
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(file);
+            link.download = `Complementario_Semana_${week}_${index + 1}_${file.name}`;
+            link.click();
+        });
+    } else {
+        alert("No hay archivos complementarios disponibles para esta semana.");
     }
 }
