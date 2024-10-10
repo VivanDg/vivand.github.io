@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
         "Descripción de la tarea de la semana 15",
         "Descripción de la tarea de la semana 16"
     ];
+
+    const pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};  // Recuperar los PDF desde localStorage
+    const complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};  // Recuperar archivos complementarios desde localStorage
     
     // Generar filas de la tabla para cada semana
     for (let week = 1; week <= 16; week++) {
@@ -46,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
         pdfContainer.innerHTML = `
             <td colspan="4">
                 <div class="pdf-container" id="pdfContainer${week}" style="display: none;">
-                    <iframe id="pdfViewer${week}" src=""></iframe>
+                    <iframe id="pdfViewer${week}" src="${pdfFiles[week] || ''}"></iframe>
                     <div class="button-group">
                         <button class="button-download" onclick="downloadPDF(${week})">Descargar PDF</button>
                         <button class="button-delete" onclick="deletePDF(${week})" ${authorized ? '' : 'disabled'}>Eliminar PDF</button>
@@ -56,12 +59,20 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
         tasksTable.appendChild(row);
         tasksTable.appendChild(pdfContainer);
+
+        if (complementaryFiles[week]) {
+            complementaryFiles[week].forEach(fileName => {
+                const fileDisplay = document.createElement("p");
+                fileDisplay.textContent = `Archivo: ${fileName}`;
+                document.getElementById(`complementaryFiles${week}`).appendChild(fileDisplay);
+            });
+        }
     }
 });
 
-// Archivo PDF autorizado solo por usuario
-const pdfFiles = {};  // Objeto para almacenar los archivos PDF subidos
-const complementaryFiles = {};  // Objeto para almacenar archivos complementarios
+// Objeto para almacenar los archivos PDF y complementarios subidos en memoria temporal
+const pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};
+const complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};
 
 // Función de autenticación para habilitar la subida de PDF
 function authorize() {
@@ -87,7 +98,9 @@ function uploadPDF(input, week) {
     
     const file = input.files[0];
     if (file && file.type === "application/pdf") {
-        pdfFiles[week] = URL.createObjectURL(file);
+        const fileURL = URL.createObjectURL(file);
+        pdfFiles[week] = fileURL;
+        localStorage.setItem("pdfFiles", JSON.stringify(pdfFiles));  // Guardar en localStorage
 
         // Habilitar el botón de visualización del PDF para esta semana
         const viewButton = input.nextElementSibling;
@@ -122,6 +135,7 @@ function deletePDF(week) {
     if (pdfFiles[week]) {
         URL.revokeObjectURL(pdfFiles[week]);
         delete pdfFiles[week];
+        localStorage.setItem("pdfFiles", JSON.stringify(pdfFiles));  // Actualizar localStorage
 
         // Ocultar el contenedor PDF y resetear el input y el botón
         document.getElementById(`pdfContainer${week}`).style.display = "none";
@@ -136,7 +150,8 @@ function uploadComplementaryFile(input, week) {
     const file = input.files[0];
     if (file) {
         if (!complementaryFiles[week]) complementaryFiles[week] = [];
-        complementaryFiles[week].push(file);
+        complementaryFiles[week].push(file.name);
+        localStorage.setItem("complementaryFiles", JSON.stringify(complementaryFiles));  // Guardar en localStorage
 
         const fileDisplay = document.createElement("p");
         fileDisplay.textContent = `Archivo: ${file.name}`;
@@ -146,10 +161,10 @@ function uploadComplementaryFile(input, week) {
 
 function downloadComplementaryFiles(week) {
     if (complementaryFiles[week] && complementaryFiles[week].length > 0) {
-        complementaryFiles[week].forEach((file, index) => {
+        complementaryFiles[week].forEach((fileName, index) => {
             const link = document.createElement("a");
-            link.href = URL.createObjectURL(file);
-            link.download = `Complementario_Semana_${week}_${index + 1}_${file.name}`;
+            link.href = URL.createObjectURL(new Blob([fileName]));
+            link.download = `Complementario_Semana_${week}_${index + 1}_${fileName}`;
             link.click();
         });
     } else {
