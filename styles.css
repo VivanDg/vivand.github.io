@@ -142,6 +142,7 @@ td button:disabled {
 .button-delete:hover {
     background-color: #c82333;
 }
+
 /* Estilo del formulario de autenticación */
 .auth {
     display: flex;
@@ -171,6 +172,5 @@ td button:disabled {
 .auth button:hover {
     background-color: #357ab8;
 }
-
 
 
