@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>Semana ${week}</td>
             <td>Descripción de la tarea de la semana ${week}</td>
             <td>
-                <input type="file" accept="application/pdf" onchange="uploadPDF(this, ${week})" ${authorized ? '' : 'disabled'}>
-                <button onclick="togglePDFView(${week})">Ver PDF</button>
+                <label class="label-upload" for="uploadPDF${week}">Subir PDF</label>
+                <input type="file" id="uploadPDF${week}" accept="application/pdf" onchange="uploadPDF(this, ${week})" ${authorized ? '' : 'disabled'}>
+                <button class="view-button" onclick="togglePDFView(${week})" ${authorized ? '' : 'disabled'}>Ver PDF</button>
             </td>
             <td>
                 <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png,.zip" onchange="uploadComplementaryFile(this, ${week})" ${authorized ? '' : 'disabled'}>
@@ -48,11 +49,12 @@ function authorize() {
         authorized = true;
         alert("Autorización exitosa. Ahora puedes subir archivos PDF.");
 
-        document.querySelectorAll("input[type='file'][accept='application/pdf']").forEach(input => {
+        // Habilitar los inputs y botones
+        document.querySelectorAll("input[type='file']").forEach(input => {
             input.disabled = false;
         });
-        
-        document.querySelectorAll("td button[onclick^='togglePDFView']").forEach(button => {
+
+        document.querySelectorAll("td button").forEach(button => {
             button.disabled = false;
         });
     } else {
