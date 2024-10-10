@@ -18,3 +18,13 @@ function toggleTaskCompletion(button) {
     row.classList.toggle("completed");
     button.textContent = row.classList.contains("completed") ? "Completada" : "Pendiente";
 }
+document.addEventListener("DOMContentLoaded", function() {
+    const weeksList = document.getElementById("weeksList");
+
+    // Crear enlaces para las 16 semanas
+    for (let week = 1; week <= 16; week++) {
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="semana${week}.html">Semana ${week}</a>`;
+        weeksList.appendChild(li);
+    }
+});
