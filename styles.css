@@ -59,3 +59,21 @@ tr:nth-child(even) {
     background-color: #c6e6c3;
     color: #006600;
 }
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
