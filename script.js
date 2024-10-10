@@ -2,13 +2,33 @@ document.addEventListener("DOMContentLoaded", function() {
     const tasksTable = document.getElementById("tasksTable").querySelector("tbody");
     let authorized = false;
 
+    // Array con descripciones personalizadas para cada semana
+    const descripciones = [
+        "Actividad 01: Modelo conceptual de base de datos",
+        "Actividad 02: Modelo Entidad - Relación",
+        "Actividad 03: Modelo Lógico",
+        "Actividad 04: Modelo Físico",
+        "Actividad 05: Consultas básicas en SQL Server y PostgreSQL",
+        "Descripción de la tarea de la semana 6",
+        "Descripción de la tarea de la semana 7",
+        "Descripción de la tarea de la semana 8",
+        "Descripción de la tarea de la semana 9",
+        "Descripción de la tarea de la semana 10",
+        "Descripción de la tarea de la semana 11",
+        "Descripción de la tarea de la semana 12",
+        "Descripción de la tarea de la semana 13",
+        "Descripción de la tarea de la semana 14",
+        "Descripción de la tarea de la semana 15",
+        "Descripción de la tarea de la semana 16"
+    ];
+    
     // Generar filas de la tabla para cada semana
     for (let week = 1; week <= 16; week++) {
         const row = document.createElement("tr");
 
         row.innerHTML = `
             <td>Semana ${week}</td>
-            <td>Descripción de la tarea de la semana ${week}</td>
+            <td>${descripciones[week - 1]}</td>
             <td>
                 <label class="label-upload" for="uploadPDF${week}">Subir PDF</label>
                 <input type="file" id="uploadPDF${week}" accept="application/pdf" onchange="uploadPDF(this, ${week})" ${authorized ? '' : 'disabled'}>
