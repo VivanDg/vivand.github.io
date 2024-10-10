@@ -103,7 +103,9 @@ function uploadPDF(input, week) {
     if (file && file.type === "application/pdf") {
         const fileURL = URL.createObjectURL(file);
         pdfFiles[week] = fileURL;
-        localStorage.setItem("pdfFiles", JSON.stringify(pdfFiles));  // Guardar en localStorage
+        
+        // Actualizar localStorage
+        localStorage.setItem("pdfFiles", JSON.stringify(pdfFiles));
 
         // Habilitar el botón de visualización del PDF para esta semana
         const viewButton = input.nextElementSibling;
@@ -127,7 +129,6 @@ function togglePDFView(week) {
 
 function savePDF(week) {
     if (pdfFiles[week]) {
-        localStorage.setItem(`savedPDFWeek${week}`, pdfFiles[week]); // Guardar en localStorage
         alert("PDF guardado en la página.");
     } else {
         alert("No hay PDF para guardar.");
@@ -163,7 +164,9 @@ function uploadComplementaryFile(input, week) {
     if (file) {
         if (!complementaryFiles[week]) complementaryFiles[week] = [];
         complementaryFiles[week].push(file.name);
-        localStorage.setItem("complementaryFiles", JSON.stringify(complementaryFiles));  // Guardar en localStorage
+        
+        // Guardar en localStorage
+        localStorage.setItem("complementaryFiles", JSON.stringify(complementaryFiles));  
 
         const fileDisplay = document.createElement("p");
         fileDisplay.textContent = `Archivo: ${file.name}`;
