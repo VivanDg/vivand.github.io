@@ -29,8 +29,33 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Las filas de la tabla se generarán dinámicamente en JavaScript -->
-            </tbody>
+    <!-- Las filas de la tabla se generarán dinámicamente en JavaScript -->
+    <tr>
+        <td>Semana ${week}</td>
+        <td>Descripción de la tarea de la semana ${week}</td>
+        <td>
+            <label class="label-upload" for="uploadPDF${week}">Subir PDF</label>
+            <input type="file" id="uploadPDF${week}" accept="application/pdf" onchange="uploadPDF(this, ${week})" disabled>
+            <button class="view-button" onclick="togglePDFView(${week})">Ver PDF</button>
+        </td>
+        <td>
+            <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png,.zip" onchange="uploadComplementaryFile(this, ${week})">
+            <div id="complementaryFiles${week}" class="complementary-files"></div>
+        </td>
+    </tr>
+    <tr class="pdf-container-row">
+        <td colspan="4">
+            <div class="pdf-container" id="pdfContainer${week}">
+                <iframe id="pdfViewer${week}" src=""></iframe>
+                <div class="button-group">
+                    <button class="button-download" onclick="downloadPDF(${week})">Descargar PDF</button>
+                    <button class="button-delete" onclick="deletePDF(${week})">Eliminar PDF</button>
+                </div>
+            </div>
+        </td>
+    </tr>
+</tbody>
+
         </table>
     </main>
 
