@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", function() {
     ];
 
     // Recuperar PDF y archivos complementarios desde localStorage
-    const pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};  
-    const complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};  
-    
+    const pdfFiles = JSON.parse(localStorage.getItem('pdfFiles')) || {};
+    const complementaryFiles = JSON.parse(localStorage.getItem('complementaryFiles')) || {};
+
     // Generar filas de la tabla para cada semana
     for (let week = 1; week <= 16; week++) {
         const row = document.createElement("tr");
@@ -183,3 +183,4 @@ function downloadComplementaryFiles(week) {
         alert("No hay archivos complementarios disponibles para esta semana.");
     }
 }
+
